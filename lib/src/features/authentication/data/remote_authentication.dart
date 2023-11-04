@@ -32,7 +32,6 @@ class RemoteAuthentication {
         throw response;
       }
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

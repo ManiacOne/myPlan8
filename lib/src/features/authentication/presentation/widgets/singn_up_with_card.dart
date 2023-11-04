@@ -22,7 +22,7 @@ class SignUpWithCard extends StatelessWidget {
             borderRadius: borderRadius16,
             child: Padding(
               padding: const EdgeInsets.all(18),
-              child: SvgPicture.asset("assets/svgs/authentication/$icon"),
+              child: SvgPicture.asset(icon),
             ),
           ),
         ),

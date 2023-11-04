@@ -31,13 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_bloc: ^8.1.3
   cupertino_icons: ^1.0.2
   connectivity_plus: ^5.0.1
   dartz: ^0.10.1
   dio: ^5.3.3
+  flutter_bloc: ^8.1.3
   flutter_svg: ^2.0.9
   fluttertoast: ^8.2.2
+  get_it: ^7.6.4
   mpp_with_ui_sdk:
     git:
       url: https://gitlab+deploy-token-859936:noYqDRgyfxF3LaMn8-XU@gitlab.com/moneyone/mpp/mppsdkshared/mpp-ui-sdk.git

@@ -3,7 +3,6 @@ import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/constants/margins_paddings_spacer.dart';
 import 'package:my_plan8/core/widgets/text_styles.dart';
 
-
 class TextFieldContainer extends StatelessWidget {
   const TextFieldContainer(
       {super.key,
@@ -30,6 +29,9 @@ class TextFieldContainer extends StatelessWidget {
           errorStyle: const TextStyle(color: AppColors.red202),
           filled: true,
           fillColor: AppColors.white,
+          border: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.black196),
+              borderRadius: borderRadius16),
           enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: AppColors.black196),
               borderRadius: borderRadius16),
