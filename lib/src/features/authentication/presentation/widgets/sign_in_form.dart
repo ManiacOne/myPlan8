@@ -7,6 +7,7 @@ import 'package:my_plan8/core/widgets/text_field_container.dart';
 import 'package:my_plan8/core/widgets/text_field_header.dart';
 import 'package:my_plan8/core/widgets/toasts.dart';
 import 'package:my_plan8/src/features/authentication/presentation/cubit/authentication_cubit.dart';
+import 'package:my_plan8/src/features/authentication/presentation/screens/demo.dart';
 import 'package:my_plan8/src/features/authentication/presentation/widgets/remember_me.dart';
 
 class SignInForm extends StatefulWidget {
@@ -19,6 +20,7 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _isSelected = false;
   String? errorText;
   String buttonText = "Login";
   @override
@@ -45,8 +47,14 @@ class _SignInFormState extends State<SignInForm> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const RememberMe(),
-            GhostButton(title: "Forgot Password?", onTap: () {})
+            GestureDetector(onTap: () {
+              setState(() {
+                _isSelected=!_isSelected;
+              });
+            }, child: RememberMe(isSelected: _isSelected)),
+            GhostButton(title: "Forgot Password?", onTap: () {
+              Navigator.pushNamed(context, Demo.routeName);
+            })
           ],
         ),
         vSpacer32,

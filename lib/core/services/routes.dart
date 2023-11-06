@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/widgets/text_styles.dart';
+import 'package:my_plan8/src/features/authentication/presentation/screens/auth_success.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/demo.dart';
+import 'package:my_plan8/src/features/authentication/presentation/screens/email_verification.dart';
+import 'package:my_plan8/src/features/authentication/presentation/screens/give_referral.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/sign_up.dart';
 
@@ -17,6 +20,15 @@ class Routes {
       
       case SignUp.routeName:
         return MaterialPageRoute(builder: (context) => const SignUp());
+
+      case EmailVerification.routeName:
+        return MaterialPageRoute(builder: (context) => const EmailVerification());
+
+      case GiveReferral.routeName:
+        return MaterialPageRoute(builder: (context) => const GiveReferral());
+
+      case AuthSuccess.routeName:
+        return MaterialPageRoute(builder: (context) => const AuthSuccess());
       
       case Demo.routeName:
         return MaterialPageRoute(builder: (context) => const Demo());

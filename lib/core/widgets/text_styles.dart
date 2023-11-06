@@ -55,15 +55,18 @@ class TextStyles {
         letterSpacing: letterSpacing ?? 0.6);
   }
 
-  static textStyles18(context, FontWeight fWeight, Color color,
-      {double? letterSpacing, double? height}) {
+  static textStyles18(
+      {FontWeight? fWeight,
+      Color? color,
+      double? letterSpacing,
+      double? height}) {
     return TextStyle(
         fontFamily: "ClashDisplay",
         fontSize: 16,
         //fontSize: Dimensions.moderateScale(18),
         //fontSize:SizeConfig.isMobilePortrait ? 2.2 * SizeConfig.textMultiplier! : 18,
-        fontWeight: fWeight,
-        color: color,
+        fontWeight: fWeight ?? FontWeight.w500,
+        color: color ?? AppColors.black92,
         wordSpacing: Dimensions.horizontalScale(1.3),
         height: height ?? Dimensions.verticalScale(1.3),
         letterSpacing: letterSpacing ?? 0.6);

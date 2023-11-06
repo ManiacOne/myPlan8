@@ -48,7 +48,7 @@ class PrimaryButton extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyles.textStyles18(
-                        context, FontWeight.w600, textColor),
+                        fWeight: FontWeight.w600, color: textColor),
                   ),
                   SizedBox(width: Dimensions.horizontalScale(12)),
                   iconImage != null

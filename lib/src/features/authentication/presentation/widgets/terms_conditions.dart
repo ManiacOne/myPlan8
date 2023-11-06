@@ -3,30 +3,16 @@ import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/widgets/custom_checkbox.dart';
 import 'package:my_plan8/core/widgets/text_styles.dart';
 
-class TermsConditions extends StatefulWidget {
-  const TermsConditions({super.key});
-
-  @override
-  State<TermsConditions> createState() => _TermsConditionsState();
-}
-
-class _TermsConditionsState extends State<TermsConditions> {
-  bool _isSelected = false;
-
+class TermsConditions extends StatelessWidget {
+  const TermsConditions({super.key, required this.isSelected});
+  final bool isSelected;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              _isSelected = !_isSelected;
-            });
-          },
-          child: CustomCheckbox(isSelected: _isSelected),
-        ),
+        CustomCheckbox(isSelected: isSelected),
         const SizedBox(width: 8),
         Text.rich(
           TextSpan(

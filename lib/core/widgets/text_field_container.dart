@@ -8,18 +8,22 @@ class TextFieldContainer extends StatelessWidget {
       {super.key,
       required this.controller,
       this.errorText,
-      required this.hintText});
+      required this.hintText,
+      this.textAlign = TextAlign.start
+      });
   final TextEditingController controller;
   final String? errorText;
   final String hintText;
+  final TextAlign textAlign;
   @override
   Widget build(BuildContext context) {
     return Form(
       child: TextFormField(
         controller: controller,
+        textAlign: textAlign,
         style: TextStyles.textStyles16(fWeight: FontWeight.w500),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 20),
+          contentPadding: EdgeInsets.only(left: textAlign==TextAlign.center ? 0 : 20),
           helperText: "",
           errorText: errorText,
           hintText: hintText,

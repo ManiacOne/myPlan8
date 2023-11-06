@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_plan8/core/constants/box_decorations.dart';
 import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/constants/dimensions.dart';
 import 'package:my_plan8/core/constants/margins_paddings_spacer.dart';
@@ -23,17 +24,7 @@ class SignUp extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color(0xffd8f2b5).withOpacity(0.2),
-                  const Color(0xffffffff)
-                ],
-                stops: const [0, 0.6],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+            decoration: authBoxDecoration,
             child: Align(
               alignment: Alignment.center,
               child: Container(

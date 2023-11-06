@@ -14,7 +14,7 @@ class SignUpWithCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 65,
+        width: 55,
         child: AspectRatio(
           aspectRatio: 1,
           child: Material(

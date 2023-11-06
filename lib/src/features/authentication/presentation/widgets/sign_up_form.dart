@@ -6,6 +6,7 @@ import 'package:my_plan8/core/widgets/primary_button.dart';
 import 'package:my_plan8/core/widgets/text_field_container.dart';
 import 'package:my_plan8/core/widgets/text_field_header.dart';
 import 'package:my_plan8/src/features/authentication/presentation/cubit/authentication_cubit.dart';
+import 'package:my_plan8/src/features/authentication/presentation/screens/email_verification.dart';
 import 'package:my_plan8/src/features/authentication/presentation/widgets/terms_conditions.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -18,6 +19,7 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _isSelected = false;
   String text = "Sign Up";
   String? errorText;
   @override
@@ -39,7 +41,13 @@ class _SignUpFormState extends State<SignUpForm> {
             hintText: "Enter your Password",
             errorText: errorText),
         vSpacer8,
-        const TermsConditions(),
+        GestureDetector(
+            onTap: () {
+              setState(() {
+                _isSelected = !_isSelected;
+              });
+            },
+            child: TermsConditions(isSelected: _isSelected)),
         vSpacer32,
         BlocConsumer<AuthenticationCubit, AuthenticationState>(
           listener: (context, state) {
@@ -66,6 +74,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       email: emailController.text.trim(),
                       type: AuthType.LOCAL.name,
                       password: passwordController.text.trim());
+                  Navigator.pushNamed(context, EmailVerification.routeName);
                 });
           },
         )
