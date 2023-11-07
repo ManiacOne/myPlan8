@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:my_plan8/core/failure/failure.dart';
 import 'package:my_plan8/src/features/authentication/data/models/auth_token_model.dart';
-import 'package:my_plan8/src/features/authentication/data/remote_authentication.dart';
+import 'package:my_plan8/src/features/authentication/data/remote_data_source/remote_authentication.dart';
 
 class AuthenticationRepository {
   final RemoteAuthentication remoteAuthentication;
@@ -35,5 +35,9 @@ class AuthenticationRepository {
     } catch (e) {
       return Left(ErrorMessage(failureMessage: e.toString()));
     }
+  }
+
+  Future getOTP({required String userID}) async{
+    remoteAuthentication.getOTP(userID : userID);
   }
 }

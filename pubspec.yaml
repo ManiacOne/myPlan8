@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  bloc: ^8.1.2
   cupertino_icons: ^1.0.2
   connectivity_plus: ^5.0.1
   dartz: ^0.10.1
@@ -43,7 +44,7 @@ dependencies:
     git:
       url: https://gitlab+deploy-token-859936:noYqDRgyfxF3LaMn8-XU@gitlab.com/moneyone/mpp/mppsdkshared/mpp-ui-sdk.git
       ref: multiple_account_prod_v1
-  bloc: ^8.1.2
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,8 @@ flutter:
     - assets/svgs/
     - assets/svgs/authentication/
     - assets/svgs/result/
+    - assets/svgs/bottom_navigator/
+    - assets/svgs/track/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

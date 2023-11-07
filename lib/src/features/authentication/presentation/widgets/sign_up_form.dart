@@ -37,9 +37,11 @@ class _SignUpFormState extends State<SignUpForm> {
         const TextFieldHeader(headerText: "Password"),
         vSpacer8,
         TextFieldContainer(
-            controller: passwordController,
-            hintText: "Enter your Password",
-            errorText: errorText),
+          controller: passwordController,
+          hintText: "Enter your Password",
+          errorText: errorText,
+          isObscure: true,
+        ),
         vSpacer8,
         GestureDetector(
             onTap: () {
@@ -59,10 +61,15 @@ class _SignUpFormState extends State<SignUpForm> {
               setState(() {
                 text = "Sign Up";
               });
+              Navigator.pushNamed(context, EmailVerification.routeName);
             } else if (state is AuthenticationError) {
               setState(() {
                 text = "Sign Up";
                 errorText = state.errorMessage;
+              });
+            } else {
+              setState(() {
+                text = "Sign Up";
               });
             }
           },
@@ -74,7 +81,6 @@ class _SignUpFormState extends State<SignUpForm> {
                       email: emailController.text.trim(),
                       type: AuthType.LOCAL.name,
                       password: passwordController.text.trim());
-                  Navigator.pushNamed(context, EmailVerification.routeName);
                 });
           },
         )

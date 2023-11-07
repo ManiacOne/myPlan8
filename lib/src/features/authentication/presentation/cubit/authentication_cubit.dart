@@ -4,7 +4,7 @@ import 'package:my_plan8/core/failure/failure.dart';
 import 'package:my_plan8/src/features/authentication/data/models/auth_token_model.dart';
 import 'package:my_plan8/src/features/authentication/domain/usecase/sign_in_user.dart';
 import 'package:my_plan8/src/features/authentication/domain/usecase/sign_up_user_usecase.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
@@ -53,9 +53,24 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           .signInUser(email: email, password: password, rememberMe: rememberMe);
       response.fold((l) {
         emit(AuthenticationError(errorMessage: l.failureMessage));
-      }, (r) {
+      }, (r) async{
+        await saveStringToLocalStorage("authToken", r.token!);
         emit(AuthenticationSuccess());
       });
     }
   }
+
+  Future<void> saveStringToLocalStorage(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, value);
+  }
+
+  Future<String> getStringFromLocalStorage(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key) ?? '';
+  }
+
+  /*==============================GET OTP==============================*/
+
+  void getOTP() async {}
 }

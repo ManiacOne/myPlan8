@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_plan8/core/constants/dimensions.dart';
+import 'package:my_plan8/core/services/injector.dart';
 import 'package:my_plan8/core/services/routes.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/sign_in.dart';
+import 'package:my_plan8/src/features/user_profile/cubit/user_profile_cubit.dart';
 import 'core/services/injector.dart' as di;
 
 void main() async {
@@ -17,15 +19,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Dimensions().init(context);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => UserProfileCubit(userProfileRepository: sl()))
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: Routes.onGenerateRoutes,
+        initialRoute: SignIn.routeName,
       ),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: Routes.onGenerateRoutes,
-      initialRoute: SignIn.routeName,
     );
   }
 }

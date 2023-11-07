@@ -9,18 +9,24 @@ class TextFieldContainer extends StatelessWidget {
       required this.controller,
       this.errorText,
       required this.hintText,
-      this.textAlign = TextAlign.start
+      this.textAlign = TextAlign.start,
+      this.isObscure = false,
+      this.textInputType = TextInputType.emailAddress
       });
   final TextEditingController controller;
   final String? errorText;
   final String hintText;
   final TextAlign textAlign;
+  final bool isObscure;
+  final TextInputType textInputType;
   @override
   Widget build(BuildContext context) {
     return Form(
       child: TextFormField(
         controller: controller,
         textAlign: textAlign,
+        obscureText: isObscure,
+        keyboardType: textInputType,
         style: TextStyles.textStyles16(fWeight: FontWeight.w500),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: textAlign==TextAlign.center ? 0 : 20),

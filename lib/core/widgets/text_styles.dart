@@ -96,15 +96,14 @@ class TextStyles {
         height: height ?? Dimensions.verticalScale(1.3));
   }
 
-  static textStyles12(context, FontWeight fWeight, Color color,
-      {double? height}) {
+  static textStyles12({FontWeight? fWeight, Color? color, double? height}) {
     return TextStyle(
         fontFamily: "ClashDisplay",
         fontSize: 10,
         //fontSize: Dimensions.moderateScale(12),
         //fontSize:SizeConfig.isMobilePortrait ? 1.4 * SizeConfig.textMultiplier! : 12,
-        fontWeight: fWeight,
-        color: color,
+        fontWeight: fWeight ?? FontWeight.w500,
+        color: color ?? AppColors.black92,
         wordSpacing: Dimensions.horizontalScale(1),
         height: height ?? Dimensions.verticalScale(1.3));
   }

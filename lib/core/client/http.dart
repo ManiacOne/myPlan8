@@ -8,7 +8,7 @@ class HTTP {
       connectTimeout: const Duration(seconds: 60),
       contentType: Headers.jsonContentType));
 
-  Future<dynamic> post(String uri, Map<String, dynamic> body) async {
+  Future<dynamic> post(String uri,{Map<String, dynamic>? body}) async {
     try {
       Response response = await _dio.post(uri, data: body);
       return response;
@@ -19,11 +19,19 @@ class HTTP {
     }
   }
 
-  Future<dynamic> get(String uri) async {
+  Future<dynamic> get(String uri, {String? token}) async {
     try {
-      Response response = await _dio.get(uri);
+      Response response = await _dio.get(
+        uri,
+        options: Options(
+          headers: {
+            "Authorization" : "Bearer $token"
+          }
+        )
+      );
       return response;
     } on DioException catch (e) {
+      print(e);
       NetworkException networkException = NetworkException();
       return networkException.dioErrorfunc(e);
     }

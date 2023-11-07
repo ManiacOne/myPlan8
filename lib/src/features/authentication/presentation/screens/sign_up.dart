@@ -20,7 +20,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthenticationCubit(signInUserUsecase: sl()),
+      create: (context) => AuthenticationCubit(signUpUserUsecase: sl()),
       child: Scaffold(
         body: SingleChildScrollView(
           child: DecoratedBox(

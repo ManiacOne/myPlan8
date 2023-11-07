@@ -16,7 +16,7 @@ class RemoteAuthentication {
       String? contactNumber,
       String? referralCode}) async {
     try {
-      dynamic response = await http.post(API.signUp, {
+      dynamic response = await http.post(API.signUp, body: {
         if (firstName != null) "firstName": firstName,
         if (lastName != null) "lastName": lastName,
         "email": email,
@@ -25,7 +25,9 @@ class RemoteAuthentication {
         if (referralCode != null) "referralCode": referralCode,
         if (contactNumber != null) "contactNo": contactNumber,
       });
+      print(response);
       if (response is! String && response.data["status"] == true) {
+        print(response.data);
       } else if (response is! String && response.data["status"] == false) {
         throw response.data["message"];
       } else {
@@ -43,19 +45,28 @@ class RemoteAuthentication {
       required String password,
       required bool rememberMe}) async {
     try {
-      dynamic response = await http.post(API.signInLocal, {
+      dynamic response = await http.post(API.signInLocal, body: {
         "email": email,
         "password": password,
         "rememberMe": rememberMe
       });
-      if(response is! String && response.data["status"] == true){
+      if (response is! String && response.data["status"] == true) {
         AuthTokenModel data = AuthTokenModel.fromJson(response.data["result"]);
         return data;
-      }else{
+      } else {
         throw response;
       }
     } catch (e) {
       rethrow;
     }
+  }
+
+  void getOTP({required String userID}) async {
+    await http.post("$API.getOtp/$userID");
+  }
+
+  void getUserProfile({required String token}) async {
+    await http.get(API.userProfile, token: token);
+    
   }
 }

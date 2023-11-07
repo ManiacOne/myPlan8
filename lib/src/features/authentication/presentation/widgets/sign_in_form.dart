@@ -9,6 +9,7 @@ import 'package:my_plan8/core/widgets/toasts.dart';
 import 'package:my_plan8/src/features/authentication/presentation/cubit/authentication_cubit.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/demo.dart';
 import 'package:my_plan8/src/features/authentication/presentation/widgets/remember_me.dart';
+import 'package:my_plan8/src/features/bottom_navigator/bottom_navigator.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -42,19 +43,24 @@ class _SignInFormState extends State<SignInForm> {
           controller: passwordController,
           hintText: "Enter your Password",
           errorText: errorText,
+          isObscure: true,
         ),
         vSpacer8,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(onTap: () {
-              setState(() {
-                _isSelected=!_isSelected;
-              });
-            }, child: RememberMe(isSelected: _isSelected)),
-            GhostButton(title: "Forgot Password?", onTap: () {
-              Navigator.pushNamed(context, Demo.routeName);
-            })
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isSelected = !_isSelected;
+                  });
+                },
+                child: RememberMe(isSelected: _isSelected)),
+            GhostButton(
+                title: "Forgot Password?",
+                onTap: () {
+                  Navigator.pushNamed(context, Demo.routeName);
+                })
           ],
         ),
         vSpacer32,
@@ -70,6 +76,7 @@ class _SignInFormState extends State<SignInForm> {
                 buttonText = "Login";
                 errorText = null;
               });
+              Navigator.pushNamed(context, BottomNavigator.routeName, arguments: 1);
             } else if (state is AuthenticationError) {
               setState(() {
                 buttonText = "Login";
