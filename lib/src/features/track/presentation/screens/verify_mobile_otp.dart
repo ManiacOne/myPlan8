@@ -12,6 +12,11 @@ class VerifyMobileOTP extends StatelessWidget {
   static const String routeName = "/verifyMobileOTP";
   @override
   Widget build(BuildContext context) {
+    TextEditingController controller1 = TextEditingController();
+    TextEditingController controller2 = TextEditingController();
+    TextEditingController controller3 = TextEditingController();
+    TextEditingController controller4 = TextEditingController();
+
     return SafeArea(
       child: Scaffold(
         appBar: GlobalAppBar(context: context, text: ""),
@@ -19,7 +24,7 @@ class VerifyMobileOTP extends StatelessWidget {
           alignment: Alignment.center,
           child: Container(
             constraints: globalConstraints,
-            margin: const EdgeInsets.symmetric(horizontal: kHMargin),
+            margin: EdgeInsets.symmetric(horizontal: kHMargin),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -31,17 +36,25 @@ class VerifyMobileOTP extends StatelessWidget {
                     text: "Enter the 4 digit OTP received at +91 - 8012 XXXX90",
                     type: TitleTextType.TERTIARY),
                 vSpacer16,
-                const Form(
+                Form(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    OtpField(),
-                    SizedBox(width: 6),
-                    OtpField(),
-                    SizedBox(width: 6),
-                    OtpField(),
-                    SizedBox(width: 6),
-                    OtpField()
+                    OtpField(
+                      controller: controller1,
+                    ),
+                    const SizedBox(width: 6),
+                    OtpField(
+                      controller: controller2,
+                    ),
+                    const SizedBox(width: 6),
+                    OtpField(
+                      controller: controller3,
+                    ),
+                    const SizedBox(width: 6),
+                    OtpField(
+                      controller: controller4,
+                    )
                   ],
                 )),
                 vSpacer28,
@@ -55,9 +68,12 @@ class VerifyMobileOTP extends StatelessWidget {
                               TextStyles.textStyles14(fWeight: FontWeight.w600))
                     ])),
                 Spacer(),
-                PrimaryButton(title: "Proceed", onTap: (){
-                  Navigator.pushNamed(context, ConnectAccountDisclaimer.routeName);
-                }),
+                PrimaryButton(
+                    title: "Proceed",
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, ConnectAccountDisclaimer.routeName);
+                    }),
                 vSpacer16
               ],
             ),

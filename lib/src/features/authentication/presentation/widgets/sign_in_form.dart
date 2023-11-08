@@ -7,7 +7,7 @@ import 'package:my_plan8/core/widgets/text_field_container.dart';
 import 'package:my_plan8/core/widgets/text_field_header.dart';
 import 'package:my_plan8/core/widgets/toasts.dart';
 import 'package:my_plan8/src/features/authentication/presentation/cubit/authentication_cubit.dart';
-import 'package:my_plan8/src/features/authentication/presentation/screens/demo.dart';
+import 'package:my_plan8/src/features/track/presentation/screens/money_one_sdk.dart';
 import 'package:my_plan8/src/features/authentication/presentation/widgets/remember_me.dart';
 import 'package:my_plan8/src/features/bottom_navigator/bottom_navigator.dart';
 
@@ -59,7 +59,7 @@ class _SignInFormState extends State<SignInForm> {
             GhostButton(
                 title: "Forgot Password?",
                 onTap: () {
-                  Navigator.pushNamed(context, Demo.routeName);
+                  Navigator.pushNamed(context, MoneyOneSDK.routeName);
                 })
           ],
         ),

@@ -22,12 +22,14 @@ class RemoteAuthentication {
         "email": email,
         "type": "LOCAL",
         "password": password,
+        "concentApproval": "PENDING",
         if (referralCode != null) "referralCode": referralCode,
         if (contactNumber != null) "contactNo": contactNumber,
       });
-      print(response);
       if (response is! String && response.data["status"] == true) {
         print(response.data);
+        AuthTokenModel data = AuthTokenModel.fromJson(response.data["result"]);
+        return data;
       } else if (response is! String && response.data["status"] == false) {
         throw response.data["message"];
       } else {
@@ -67,6 +69,20 @@ class RemoteAuthentication {
 
   void getUserProfile({required String token}) async {
     await http.get(API.userProfile, token: token);
-    
+  }
+
+  Future<bool> verifyOTP(
+      {required String otp, required String authToken}) async {
+    try {
+      dynamic response = await http.post(API.verifyOTP,
+          body: {"otp": otp}, authToken: authToken);
+      if (response is! String && response.data["status"] == true) {
+        return true;
+      } else {
+        throw response;
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }

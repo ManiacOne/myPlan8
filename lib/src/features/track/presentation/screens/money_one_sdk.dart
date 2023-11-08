@@ -1,37 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mpp_with_ui_sdk/mpp_sdk.dart';
-import 'package:mpp_with_ui_sdk/common_function/showMppErrorMessage.dart';
-import 'package:mpp_headless_sdk/generated/OnemoneyMPP.pb.dart';
+// import 'package:mpp_with_ui_sdk/common_function/showMppErrorMessage.dart';
+// import 'package:mpp_headless_sdk/generated/OnemoneyMPP.pb.dart';
 import 'package:my_plan8/core/client/http.dart';
 import 'package:pds_flutter/onemoney_pds.dart';
 
-class Demo extends StatefulWidget {
-  const Demo({super.key});
+class MoneyOneSDK extends StatefulWidget {
+  const MoneyOneSDK({super.key});
   static const String routeName = "/demo";
 
   @override
-  State<Demo> createState() => _DemoState();
+  State<MoneyOneSDK> createState() => _MoneyOneSDKState();
 }
 
-class _DemoState extends State<Demo> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    print('Current state = $state');
-  }
-
+class _MoneyOneSDKState extends State<MoneyOneSDK> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,13 +30,12 @@ class _DemoState extends State<Demo> with WidgetsBindingObserver {
               onPressed: () async {
                 MppSDK mppSDK = MppSDK(
                   baseUrl:
-                      'https://mpp-api.moneyone.in', //UAT - https://mpp-api-uat.moneyone.in // PROD - https://mpp-api.moneyone.in
-                  mobileNumber: '8017118135', // 9492602601 // 9988776600
+                      'https://mpp-api.moneyone.in',
+                  mobileNumber: '8017118135',
                   clientId: 'a4pg25-clinMyP8-iksw5m32smnc',
                   appIdentifier: 'MPP',
                   apiKey: '3a125570-2265-4dcc-b38b-ce2a7ee3ee4a',
                   organisationId: 'CONSUMER011',
-                  //ssoTimeStamp: "2022-04-21T12:46:13+00:00",
                   ssoTimeStamp: "2022-04-21T12:46:13+00:00",
                   partyName: "bbbnb",
                   consentHandle: '4d0e4fdf-9b16-47a8-a804-30c1d00300e7',
@@ -66,9 +47,7 @@ class _DemoState extends State<Demo> with WidgetsBindingObserver {
                     }
                   },
                 );
-
                 //await getConsentId(mpp: mppSDK);
-
                 await mppSDK.mppSDKLogin(context: context, mpp: mppSDK);
               },
               child: Text('Open MPP SDK'),
@@ -89,22 +68,22 @@ class _DemoState extends State<Demo> with WidgetsBindingObserver {
   }
 
   /*=================WE SHOULD NOT CALL THIS=======================*/
-  Future<String> getConsentId({required MppSDK mpp}) async {
-    try {
-      RequestConsentResponse requestConsentResponse = await mpp.requestConsent(
-        requestConsentRequest: RequestConsentRequest(
-          productID: "8", // 7
-          partyIdentifierType: "MOBILE",
-          partyIdentifierValue: mpp.mobileNumber,
-          accountID: "123",
-        ),
-      );
-      return requestConsentResponse.data.consentHandle;
-    } catch (err) {
-      showMppError(err);
-      rethrow;
-      //return "error";
-      //rethrow;
-    }
-  }
+  // Future<String> getConsentId({required MppSDK mpp}) async {
+  //   try {
+  //     RequestConsentResponse requestConsentResponse = await mpp.requestConsent(
+  //       requestConsentRequest: RequestConsentRequest(
+  //         productID: "8", // 7
+  //         partyIdentifierType: "MOBILE",
+  //         partyIdentifierValue: mpp.mobileNumber,
+  //         accountID: "123",
+  //       ),
+  //     );
+  //     return requestConsentResponse.data.consentHandle;
+  //   } catch (err) {
+  //     showMppError(err);
+  //     rethrow;
+  //     //return "error";
+  //     //rethrow;
+  //   }
+  // }
 }

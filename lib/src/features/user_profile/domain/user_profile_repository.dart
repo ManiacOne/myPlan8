@@ -17,4 +17,15 @@ class UserProfileRepository {
       return Left(ErrorMessage(failureMessage: e.toString()));
     }
   }
+
+  Future<Either<Failure, bool>> updateUserProfile(
+      {required String userId, required String consentStatus, required String authToken}) async {
+    try {
+      bool response = await remoteUserProfile.updateUserProfile(
+          userId: userId, consentStatus: consentStatus, authToken : authToken);
+      return Right(response);
+    } catch (e) {
+      return Left(ErrorMessage(failureMessage: e.toString()));
+    }
+  }
 }

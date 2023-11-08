@@ -35,8 +35,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(24), topRight: Radius.circular(24)),
           child: Container(
-            height: 70,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 36),
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 36),
             decoration: const BoxDecoration(
               color: AppColors.blue246,
               boxShadow: [

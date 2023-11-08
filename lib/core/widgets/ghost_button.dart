@@ -26,8 +26,8 @@ class GhostButton extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyles.textStyles14(
-                fWeight : FontWeight.w500,
+            style: TextStyles.textStyles16(
+                fWeight : FontWeight.w600,
                 color: AppColors.green65
                 ),
           )

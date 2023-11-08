@@ -5,15 +5,16 @@ import 'package:my_plan8/core/constants/margins_paddings_spacer.dart';
 
 class OtpField extends StatelessWidget {
   const OtpField({
-    super.key,
+    super.key, required this.controller,
   });
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 55,
       width: 70,
       child: TextFormField(
+        controller: controller,
         onChanged: (value) {
           if (value.length == 1) {
             FocusScope.of(context).nextFocus();

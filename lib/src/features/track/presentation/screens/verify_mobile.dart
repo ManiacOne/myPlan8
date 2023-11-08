@@ -22,7 +22,7 @@ class VerifyMobile extends StatelessWidget {
           alignment: Alignment.center,
           child: Container(
             constraints: globalConstraints,
-            margin: const EdgeInsets.symmetric(horizontal: kHMargin),
+            margin: EdgeInsets.symmetric(horizontal: kHMargin),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

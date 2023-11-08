@@ -2,17 +2,20 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_plan8/core/failure/failure.dart';
 import 'package:my_plan8/src/features/authentication/data/models/auth_token_model.dart';
-import 'package:my_plan8/src/features/authentication/domain/usecase/sign_in_user.dart';
+import 'package:my_plan8/src/features/authentication/domain/usecase/sign_in_user_usecase.dart';
 import 'package:my_plan8/src/features/authentication/domain/usecase/sign_up_user_usecase.dart';
+import 'package:my_plan8/src/features/authentication/domain/usecase/verify_otp_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationCubit({this.signUpUserUsecase, this.signInUserUsecase})
+  AuthenticationCubit(
+      {this.signUpUserUsecase, this.signInUserUsecase, this.verifyOTPUsecase})
       : super(AuthenticationInitial());
 
   SignUpUserUsecase? signUpUserUsecase;
   SignInUserUsecase? signInUserUsecase;
+  VerifyOTPUsecase? verifyOTPUsecase;
 
   /*=================================SIGN UP===================================*/
   void signUpUser(
@@ -27,14 +30,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     if (email == "" || password == "") {
       emit(AuthenticationError(errorMessage: "Enter Valid Details"));
     } else {
-      print(email);
-      print(password);
-      Either<Failure, bool> response = await signUpUserUsecase!
+      Either<Failure, AuthTokenModel> response = await signUpUserUsecase!
           .signUpUser(email: email, type: type, password: password);
       response.fold((l) {
         emit(AuthenticationError(errorMessage: l.failureMessage));
       }, (r) {
-        emit(AuthenticationSuccess());
+        emit(AuthenticationSuccess(authToken: r.token));
       });
     }
   }
@@ -53,7 +54,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           .signInUser(email: email, password: password, rememberMe: rememberMe);
       response.fold((l) {
         emit(AuthenticationError(errorMessage: l.failureMessage));
-      }, (r) async{
+      }, (r) async {
         await saveStringToLocalStorage("authToken", r.token!);
         emit(AuthenticationSuccess());
       });
@@ -65,12 +66,18 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     prefs.setString(key, value);
   }
 
-  Future<String> getStringFromLocalStorage(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? '';
+  /*==============================VERIFY OTP==============================*/
+  Future verifyOTP({required String otp, required String authToken}) async {
+    emit(AuthenticationLoading());
+    if (otp.length != 4) {
+      emit(AuthenticationError(errorMessage: "please enter valid OTP"));
+    } else {
+      Either<Failure, bool> response = await verifyOTPUsecase!.verifyOTP(otp: otp, authToken: authToken);
+      response.fold((l){
+        emit(AuthenticationError(errorMessage: l.failureMessage));
+      }, (r){
+        emit(AuthenticationSuccess());
+      });
+    }
   }
-
-  /*==============================GET OTP==============================*/
-
-  void getOTP() async {}
 }

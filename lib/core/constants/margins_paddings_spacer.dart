@@ -1,11 +1,10 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:my_plan8/core/constants/dimensions.dart';
 
 /*================BODY MARGIN==================*/
 
-const double kHMargin = 24;
+final double kHMargin = Dimensions.horizontalScale(24);
 const BoxConstraints globalConstraints = BoxConstraints(maxWidth: 500);
 
 /*================SPACERS======================*/

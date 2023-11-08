@@ -60,8 +60,9 @@ class _SignUpFormState extends State<SignUpForm> {
             } else if (state is AuthenticationSuccess) {
               setState(() {
                 text = "Sign Up";
+                errorText = null;
               });
-              Navigator.pushNamed(context, EmailVerification.routeName);
+              Navigator.pushNamed(context, EmailVerification.routeName, arguments: state.authToken);
             } else if (state is AuthenticationError) {
               setState(() {
                 text = "Sign Up";
@@ -70,6 +71,7 @@ class _SignUpFormState extends State<SignUpForm> {
             } else {
               setState(() {
                 text = "Sign Up";
+                errorText = null;
               });
             }
           },

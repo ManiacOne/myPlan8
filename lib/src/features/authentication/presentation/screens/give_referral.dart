@@ -20,9 +20,9 @@ class GiveReferral extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          leading: const Padding(
+          leading:  Padding(
             padding: EdgeInsets.only(left: kHMargin),
-            child: Icon(Icons.arrow_back, color: AppColors.green65, size: 20),
+            child:const Icon(Icons.arrow_back, color: AppColors.green65, size: 20),
           ),
         ),
         body: DecoratedBox(
@@ -32,7 +32,7 @@ class GiveReferral extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               constraints: globalConstraints,
-              margin: const EdgeInsets.symmetric(horizontal: kHMargin),
+              margin: EdgeInsets.symmetric(horizontal: kHMargin),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

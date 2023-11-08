@@ -32,8 +32,8 @@ const String teamsSelected = "$baseBottomNavigator/teamsSelected.svg";
 /*=========================TRACK================================*/
 const String baseTrack = "assets/svgs/track";
 
-const String logo1 = "$baseTrack/logo1.svg";
-const String logo2 = "$baseTrack/logo2.svg";
+const String fadedLogo = "$baseTrack/fadedLogo.svg";
+const String stackedLogo = "$baseTrack/stackedLogo.svg";
 const String connect = "$baseTrack/connect.svg";
 const String security = "$baseTrack/security.svg";
 const String compliance = "$baseTrack/compliance.svg";

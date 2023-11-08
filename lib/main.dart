@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_plan8/core/constants/dimensions.dart';
 import 'package:my_plan8/core/services/injector.dart';
 import 'package:my_plan8/core/services/routes.dart';
-import 'package:my_plan8/src/features/authentication/presentation/screens/sign_in.dart';
+import 'package:my_plan8/src/features/splash_screen/presentation/screens/splash_screen.dart';
 import 'package:my_plan8/src/features/user_profile/cubit/user_profile_cubit.dart';
 import 'core/services/injector.dart' as di;
 
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: Routes.onGenerateRoutes,
-        initialRoute: SignIn.routeName,
+        initialRoute: SplashScreen.routeName,
       ),
     );
   }

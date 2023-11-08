@@ -1,103 +1,69 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_plan8/core/constants/box_decorations.dart';
 import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/constants/margins_paddings_spacer.dart';
-import 'package:my_plan8/core/widgets/otp_field.dart';
-import 'package:my_plan8/core/widgets/primary_button.dart';
+import 'package:my_plan8/core/services/injector.dart';
 import 'package:my_plan8/core/widgets/text_styles.dart';
 import 'package:my_plan8/core/widgets/title_text.dart';
-import 'package:my_plan8/src/features/authentication/presentation/screens/give_referral.dart';
+import 'package:my_plan8/src/features/authentication/presentation/cubit/authentication_cubit.dart';
+import 'package:my_plan8/src/features/authentication/presentation/widgets/email_verify_form.dart';
 
 class EmailVerification extends StatelessWidget {
-  const EmailVerification({super.key});
+  const EmailVerification({super.key, required this.authToken});
   static const String routeName = "/emailVerification";
+  final String authToken;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: const Padding(
-            padding: EdgeInsets.only(left: kHMargin),
-            child: Icon(Icons.arrow_back, color: AppColors.green65, size: 20),
+    return BlocProvider(
+      create: (context) => AuthenticationCubit(verifyOTPUsecase: sl()),
+      child: SafeArea(
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: Padding(
+              padding: EdgeInsets.only(left: kHMargin),
+              child: const Icon(Icons.arrow_back, color: AppColors.green65, size: 20),
+            ),
           ),
-        ),
-        body: DecoratedBox(
-          decoration: authBoxDecoration,
-          child: Align(
-            alignment: Alignment.center,
-            child: Container(
+          body: DecoratedBox(
+            decoration: authBoxDecoration,
+            child: Align(
               alignment: Alignment.center,
-              constraints: globalConstraints,
-              margin: const EdgeInsets.symmetric(horizontal: kHMargin),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Material(
-                    borderRadius: borderRadius16,
-                    color: AppColors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const TitleText(
-                              text: "Email Verification",
-                              type: TitleTextType.SECONDARY),
-                          vSpacer24,
-                          Text(
-                            "Enter the 4 digit OTP received at pawan@myplan8.com",
-                            textAlign: TextAlign.center,
-                            style: TextStyles.textStyles16(),
-                          ),
-                          vSpacer16,
-                          const Form(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              OtpField(),
-                              SizedBox(width: 6),
-                              OtpField(),
-                              SizedBox(width: 6),
-                              OtpField(),
-                              SizedBox(width: 6),
-                              OtpField()
-                            ],
-                          )),
-                          vSpacer16,
-                          Text.rich(TextSpan(
-                              text: "Didn't receive OTP? ",
-                              style: TextStyles.textStyles14(
-                                  fWeight: FontWeight.w500),
-                              children: [
-                                TextSpan(
-                                    text: "Resend OTP",
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {},
-                                    style: TextStyles.textStyles14(
-                                        fWeight: FontWeight.w500,
-                                        color: AppColors.green65))
-                              ])),
-                          vSpacer32,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: kHMargin),
-                            child: PrimaryButton(
-                                title: "Proceed",
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, GiveReferral.routeName);
-                                }),
-                          )
-                        ],
+              child: Container(
+                alignment: Alignment.center,
+                constraints: globalConstraints,
+                margin: EdgeInsets.symmetric(horizontal: kHMargin),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Material(
+                      borderRadius: borderRadius16,
+                      color: AppColors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const TitleText(
+                                text: "Email Verification",
+                                type: TitleTextType.SECONDARY),
+                            vSpacer24,
+                            Text(
+                              "Enter the 4 digit OTP received at pawan@myplan8.com",
+                              textAlign: TextAlign.center,
+                              style: TextStyles.textStyles16(),
+                            ),
+                            vSpacer16,
+                            EmailVerifyForm(authToken: authToken)
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

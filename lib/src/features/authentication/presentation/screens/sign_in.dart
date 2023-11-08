@@ -20,65 +20,68 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationCubit(signInUserUsecase: sl()),
-      child: SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: DecoratedBox(
-              decoration: authBoxDecoration,
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  constraints: globalConstraints,
-                  height: Dimensions.screenHeight,
-                  width: Dimensions.screenWidth,
-                  margin: const EdgeInsets.symmetric(horizontal: kHMargin),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(appLogo),
-                      vSpacer24,
-                      const TitleText(
-                          text: "Let's Sign You In",
-                          type: TitleTextType.SECONDARY),
-                      vSpacer16,
-                      const TitleText(
-                          text: "Welcome back, you've been missed!",
-                          type: TitleTextType.TERTIARY),
-                      vSpacer32,
-                      const SignInForm(),
-                      vSpacer24,
-                      GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, SignUp.routeName),
-                        child: Text.rich(TextSpan(
-                            text: "Don't have an account? ",
-                            style: TextStyles.textStyles14(),
-                            children: [
-                              TextSpan(
-                                  text: "Sign Up!",
-                                  style: TextStyles.textStyles14(
-                                      fWeight: FontWeight.w600,
-                                      color: AppColors.green65))
-                            ])),
-                      ),
-                      vSpacer32,
-                      Text(
-                        "Sign Up with",
-                        style: TextStyles.textStyles14(),
-                      ),
-                      vSpacer16,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SignUpWithCard(icon: googleIcon, onTap: () {}),
-                          SizedBox(width: Dimensions.horizontalScale(16)),
-                          SignUpWithCard(icon: appleIcon, onTap: () {})
-                        ],
-                      )
-                    ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: BlocProvider(
+        create: (context) => AuthenticationCubit(signInUserUsecase: sl()),
+        child: SafeArea(
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: DecoratedBox(
+                decoration: authBoxDecoration,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    constraints: globalConstraints,
+                    height: Dimensions.screenHeight,
+                    width: Dimensions.screenWidth,
+                    margin: EdgeInsets.symmetric(horizontal: kHMargin),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(appLogo),
+                        vSpacer24,
+                        const TitleText(
+                            text: "Let's Sign You In",
+                            type: TitleTextType.SECONDARY),
+                        vSpacer16,
+                        const TitleText(
+                            text: "Welcome back, you've been missed!",
+                            type: TitleTextType.TERTIARY),
+                        vSpacer32,
+                        const SignInForm(),
+                        vSpacer24,
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, SignUp.routeName),
+                          child: Text.rich(TextSpan(
+                              text: "Don't have an account? ",
+                              style: TextStyles.textStyles14(),
+                              children: [
+                                TextSpan(
+                                    text: "Sign Up!",
+                                    style: TextStyles.textStyles14(
+                                        fWeight: FontWeight.w600,
+                                        color: AppColors.green65))
+                              ])),
+                        ),
+                        vSpacer32,
+                        Text(
+                          "Sign Up with",
+                          style: TextStyles.textStyles14(),
+                        ),
+                        vSpacer16,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SignUpWithCard(icon: googleIcon, onTap: () {}),
+                            SizedBox(width: Dimensions.horizontalScale(16)),
+                            SignUpWithCard(icon: appleIcon, onTap: () {})
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -31,7 +31,7 @@ class SignUp extends StatelessWidget {
                 constraints: globalConstraints,
                 height: Dimensions.screenHeight,
                 width: Dimensions.screenWidth,
-                margin: const EdgeInsets.symmetric(horizontal: kHMargin),
+                margin: EdgeInsets.symmetric(horizontal: kHMargin),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

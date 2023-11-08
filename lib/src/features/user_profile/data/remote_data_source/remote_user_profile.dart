@@ -9,10 +9,26 @@ class RemoteUserProfile {
   Future getUserProfile({required String authToken}) async {
     try {
       dynamic response = await http.get(API.userProfile, token: authToken);
-      if(response is! String && response.data["status"] == true){
-        UserProfileModel data = UserProfileModel.fromJson(response);
-        return response;
-      }else{
+      if (response is! String && response.data["status"] == true) {
+        UserProfileModel data =
+            UserProfileModel.fromJson(response.data["result"]["data"]);
+        return data;
+      } else {
+        throw response;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future updateUserProfile(
+      {required String userId, required String consentStatus, required String authToken}) async {
+    try {
+      dynamic response = await http
+          .put("${API.user}/$userId", {"concentApproval": consentStatus}, authToken: authToken);
+      if (response is! String) {
+        return true;
+      } else {
         throw response;
       }
     } catch (e) {

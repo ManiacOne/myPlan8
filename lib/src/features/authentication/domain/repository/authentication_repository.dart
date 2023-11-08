@@ -7,7 +7,7 @@ class AuthenticationRepository {
   final RemoteAuthentication remoteAuthentication;
   const AuthenticationRepository(this.remoteAuthentication);
 
-  Future<Either<Failure, bool>> signUpUser(
+  Future<Either<Failure, AuthTokenModel>> signUpUser(
       {String? firstName,
       String? lastName,
       required String email,
@@ -16,9 +16,9 @@ class AuthenticationRepository {
       String? contactNumber,
       String? referralCode}) async {
     try {
-      dynamic response = await remoteAuthentication.signUpUser(
+      AuthTokenModel response = await remoteAuthentication.signUpUser(
           email: email, type: type, password: password);
-      return const Right(true);
+      return Right(response);
     } catch (e) {
       return Left(ErrorMessage(failureMessage: e.toString()));
     }
@@ -37,7 +37,18 @@ class AuthenticationRepository {
     }
   }
 
-  Future getOTP({required String userID}) async{
-    remoteAuthentication.getOTP(userID : userID);
+  Future getOTP({required String userID}) async {
+    remoteAuthentication.getOTP(userID: userID);
+  }
+
+  Future<Either<Failure, bool>> verifyOTP(
+      {required String otp, required String authToken}) async {
+    try {
+      bool response =
+          await remoteAuthentication.verifyOTP(otp: otp, authToken: authToken);
+      return Right(response);
+    } catch (e) {
+      return Left(ErrorMessage(failureMessage: e.toString()));
+    }
   }
 }

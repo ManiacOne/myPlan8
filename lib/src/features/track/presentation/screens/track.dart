@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/constants/margins_paddings_spacer.dart';
-import 'package:my_plan8/core/widgets/global_appbar.dart';
 import 'package:my_plan8/core/widgets/primary_button.dart';
 import 'package:my_plan8/core/widgets/text_icon_button.dart';
 import 'package:my_plan8/core/widgets/title_text.dart';
@@ -14,12 +13,12 @@ class Track extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: GlobalAppBar(context: context, text: ""),
+        //appBar: GlobalAppBar(context: context, text: ""),
         body: Align(
           alignment: Alignment.center,
           child: Container(
             constraints: globalConstraints,
-            margin: const EdgeInsets.symmetric(horizontal: kHMargin),
+            margin: EdgeInsets.symmetric(horizontal: kHMargin),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/widgets/text_styles.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/auth_success.dart';
-import 'package:my_plan8/src/features/authentication/presentation/screens/demo.dart';
+import 'package:my_plan8/src/features/track/presentation/screens/generating_score.dart';
+import 'package:my_plan8/src/features/track/presentation/screens/money_one_sdk.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/email_verification.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/give_referral.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/sign_up.dart';
 import 'package:my_plan8/src/features/bottom_navigator/bottom_navigator.dart';
+import 'package:my_plan8/src/features/splash_screen/presentation/screens/splash_screen.dart';
 import 'package:my_plan8/src/features/track/presentation/screens/connect_account_disclaimer.dart';
 import 'package:my_plan8/src/features/track/presentation/screens/verify_mobile.dart';
 import 'package:my_plan8/src/features/track/presentation/screens/verify_mobile_otp.dart';
@@ -17,6 +19,10 @@ class Routes {
     final args = routeSettings.arguments;
 
     switch (routeSettings.name) {
+
+      case SplashScreen.routeName:
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
+
       /*=====================BOTTOM NAVIGATION======================*/
       case BottomNavigator.routeName:
         if (args is int) {
@@ -34,8 +40,12 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const SignUp());
 
       case EmailVerification.routeName:
-        return MaterialPageRoute(
-            builder: (context) => const EmailVerification());
+        if(args is String){
+            return MaterialPageRoute(
+            builder: (context) => EmailVerification(authToken: args));
+        }else{
+          return _routeError();
+        }
 
       case GiveReferral.routeName:
         return MaterialPageRoute(builder: (context) => const GiveReferral());
@@ -43,8 +53,8 @@ class Routes {
       case AuthSuccess.routeName:
         return MaterialPageRoute(builder: (context) => const AuthSuccess());
 
-      case Demo.routeName:
-        return MaterialPageRoute(builder: (context) => const Demo());
+      case MoneyOneSDK.routeName:
+        return MaterialPageRoute(builder: (context) => const MoneyOneSDK());
 
       /*========================TRACK===============================*/
 
@@ -56,6 +66,9 @@ class Routes {
 
       case ConnectAccountDisclaimer.routeName:
         return MaterialPageRoute(builder: (context) => const ConnectAccountDisclaimer());
+      
+      case GeneratingScore.routeName:
+        return MaterialPageRoute(builder: (context) => const GeneratingScore());
 
       default:
         return MaterialPageRoute(
