@@ -8,8 +8,9 @@ import 'package:my_plan8/core/widgets/title_text.dart';
 import 'package:my_plan8/src/features/track/presentation/screens/connect_account_disclaimer.dart';
 
 class VerifyMobileOTP extends StatelessWidget {
-  const VerifyMobileOTP({super.key});
+  const VerifyMobileOTP({super.key, required this.mobileNumber});
   static const String routeName = "/verifyMobileOTP";
+  final String mobileNumber;
   @override
   Widget build(BuildContext context) {
     TextEditingController controller1 = TextEditingController();
@@ -19,7 +20,7 @@ class VerifyMobileOTP extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: GlobalAppBar(context: context, text: ""),
+        appBar: GlobalAppBar(context: context, text: "", onTap: ()=>Navigator.pop(context)),
         body: Align(
           alignment: Alignment.center,
           child: Container(
@@ -32,8 +33,8 @@ class VerifyMobileOTP extends StatelessWidget {
                 const TitleText(
                     text: "Mobile verification", type: TitleTextType.SECONDARY),
                 vSpacer16,
-                const TitleText(
-                    text: "Enter the 4 digit OTP received at +91 - 8012 XXXX90",
+                TitleText(
+                    text: "Enter the 4 digit OTP received at +91 - $mobileNumber",
                     type: TitleTextType.TERTIARY),
                 vSpacer16,
                 Form(

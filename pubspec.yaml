@@ -40,6 +40,8 @@ dependencies:
   flutter_svg: ^2.0.9
   fluttertoast: ^8.2.2
   get_it: ^7.6.4
+  google_sign_in: ^6.1.5
+  change_app_package_name: ^1.1.0
   mpp_with_ui_sdk:
     git:
       url: https://gitlab+deploy-token-859936:noYqDRgyfxF3LaMn8-XU@gitlab.com/moneyone/mpp/mppsdkshared/mpp-ui-sdk.git
@@ -71,6 +73,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/svgs/
+    - assets/svgs/onboarding/
     - assets/svgs/authentication/
     - assets/svgs/result/
     - assets/svgs/bottom_navigator/

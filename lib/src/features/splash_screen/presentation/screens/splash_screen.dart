@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_plan8/core/widgets/title_text.dart';
-import 'package:my_plan8/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:my_plan8/src/features/bottom_navigator/bottom_navigator.dart';
 import 'package:my_plan8/src/features/splash_screen/presentation/cubit/splah_screen_cubit.dart';
+import 'package:my_plan8/src/features/splash_screen/presentation/screens/onboarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -52,7 +52,8 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
             }else if(state is SplashScreenSuccess){
               Navigator.pushNamed(context, BottomNavigator.routeName, arguments: 1);
             }else{
-              Navigator.pushNamed(context, SignIn.routeName);
+              Navigator.pushNamed(context, OnboardinScreen.routeName);
+              //Navigator.pushNamed(context, SignIn.routeName);
             }
           }, 
           child: TitleText(text: text, type: TitleTextType.SECONDARY)

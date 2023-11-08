@@ -1,18 +1,29 @@
 
 /*===================== BASE==========================*/
 const String baseSvg = "assets/svgs";
-const String baseAuth = "$baseSvg/authentication";
-const String baseResult = "$baseSvg/result";
 
 /*=============================SVGs========================*/
 const String appLogo = "$baseSvg/app_logo.svg";
 
+/*========================ONBOARDING=======================*/
+const String baseOnboard = "$baseSvg/onboarding";
+
+const String onboardImage1 = "$baseOnboard/onboard_image1.svg";
+const String onboardImage2 = "$baseOnboard/onboard_image2.svg";
+const String onboardImage3 = "$baseOnboard/onboard_image3.svg";
+const String onboardImage4 = "$baseOnboard/onboard_image4.svg";
+const String onboardImage5 = "$baseOnboard/onboard_image5.svg";
+const String onboardImage6 = "$baseOnboard/onboard_image6.svg";
+const String onboardImage7 = "$baseOnboard/onboard_image7.svg";
+
 /*======================AUTHENTICATION=====================*/
+const String baseAuth = "$baseSvg/authentication";
 
 const String appleIcon = "$baseAuth/apple_icon.svg";
 const String googleIcon = "$baseAuth/google_icon.svg";
 
 /*========================RESULT IMGS======================*/
+const String baseResult = "$baseSvg/result";
 
 const String success = "$baseResult/success.png";
 

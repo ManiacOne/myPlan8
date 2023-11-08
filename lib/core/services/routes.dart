@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_plan8/core/constants/colors.dart';
 import 'package:my_plan8/core/widgets/text_styles.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/auth_success.dart';
+import 'package:my_plan8/src/features/splash_screen/presentation/screens/onboarding_screen.dart';
 import 'package:my_plan8/src/features/track/presentation/screens/generating_score.dart';
 import 'package:my_plan8/src/features/track/presentation/screens/money_one_sdk.dart';
 import 'package:my_plan8/src/features/authentication/presentation/screens/email_verification.dart';
@@ -19,9 +20,11 @@ class Routes {
     final args = routeSettings.arguments;
 
     switch (routeSettings.name) {
-
       case SplashScreen.routeName:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
+
+      case OnboardinScreen.routeName:
+        return MaterialPageRoute(builder: (context) => const OnboardinScreen());
 
       /*=====================BOTTOM NAVIGATION======================*/
       case BottomNavigator.routeName:
@@ -40,10 +43,10 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const SignUp());
 
       case EmailVerification.routeName:
-        if(args is String){
-            return MaterialPageRoute(
-            builder: (context) => EmailVerification(authToken: args));
-        }else{
+        if (args is String) {
+          return MaterialPageRoute(
+              builder: (context) => EmailVerification(authToken: args));
+        } else {
           return _routeError();
         }
 
@@ -62,11 +65,17 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const VerifyMobile());
 
       case VerifyMobileOTP.routeName:
-        return MaterialPageRoute(builder: (context) => const VerifyMobileOTP());
+        if (args is String) {
+          return MaterialPageRoute(
+              builder: (context) => VerifyMobileOTP(mobileNumber: args));
+        } else {
+          return _routeError();
+        }
 
       case ConnectAccountDisclaimer.routeName:
-        return MaterialPageRoute(builder: (context) => const ConnectAccountDisclaimer());
-      
+        return MaterialPageRoute(
+            builder: (context) => const ConnectAccountDisclaimer());
+
       case GeneratingScore.routeName:
         return MaterialPageRoute(builder: (context) => const GeneratingScore());
 

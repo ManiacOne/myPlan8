@@ -1,4 +1,4 @@
-package com.example.my_plan8
+package com.earth.my_plan8
 
 import io.flutter.embedding.android.FlutterActivity
 

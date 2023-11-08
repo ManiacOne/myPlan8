@@ -24,7 +24,7 @@
         </intent>
     </queries>
     <application
-        android:label="my_plan8"
+        android:label="MyPlan8"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

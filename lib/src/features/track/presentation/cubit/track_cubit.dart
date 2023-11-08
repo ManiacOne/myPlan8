@@ -12,7 +12,16 @@ class TrackCubit extends Cubit<TrackState> {
   void getConsent() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("authToken") ?? "";
-    print(token);
     await consentUsecase!.getConsent(authToken: token);
   }
+
+  void verifyMobile({required String mobileNumber})async{
+    if(mobileNumber == "" || mobileNumber.length < 10 || mobileNumber.length > 10 ){
+      emit(TrackError(errorMessage: "Invalid Mobile number"));
+    }else{
+      print(mobileNumber);
+      emit(TrackSuccess());
+    }
+  }
+
 }

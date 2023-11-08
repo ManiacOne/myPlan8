@@ -28,17 +28,16 @@ class TextStyles {
         color: color);
   }
 
-  static textStyles28(context, FontWeight fWeight, Color color,
-      {double? height}) {
+  static textStyles22({FontWeight? fWeight, Color? color, double? height}) {
     return TextStyle(
         fontFamily: "ClashDisplay",
-        fontSize: 32,
+        fontSize: 22,
         //fontSize: Dimensions.moderateScale(32),
         //fontSize: SizeConfig.isMobilePortrait ? 3.2 * SizeConfig.textMultiplier! : 28,
-        fontWeight: fWeight,
+        fontWeight: fWeight ?? FontWeight.w600,
         height: height ?? Dimensions.verticalScale(1.3),
         letterSpacing: 0.32,
-        color: color);
+        color: color ?? AppColors.green41);
   }
 
   static textStyles20(context, FontWeight fWeight, Color color,
