@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:my_plan8/core/failure/failure.dart';
 import 'package:my_plan8/src/features/track/domain/usecase/getConsent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,19 +11,19 @@ class TrackCubit extends Cubit<TrackState> {
 
   ConsentUsecase? consentUsecase;
 
-  void getConsent() async {
+  Future<String> getConsent() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("authToken") ?? "";
-    await consentUsecase!.getConsent(authToken: token);
-  }
-
-  void verifyMobile({required String mobileNumber})async{
-    if(mobileNumber == "" || mobileNumber.length < 10 || mobileNumber.length > 10 ){
-      emit(TrackError(errorMessage: "Invalid Mobile number"));
-    }else{
-      print(mobileNumber);
-      emit(TrackSuccess());
-    }
+    String consentHandle = "";
+    Either<Failure, String> response = await consentUsecase!.getConsent(authToken: token);
+    response.fold((l){
+      consentHandle = "";
+      emit(TrackError(errorMessage: l.failureMessage));
+    }, (r){
+      consentHandle = r;
+      emit(TrackSuccess(consentHandle: r));
+    });
+    return consentHandle;
   }
 
 }

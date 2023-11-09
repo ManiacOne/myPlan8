@@ -22,10 +22,15 @@ class RemoteUserProfile {
   }
 
   Future updateUserProfile(
-      {required String userId, required String consentStatus, required String authToken}) async {
+      {required String userId, String? consentStatus, required String authToken, int? mobileNumber}) async {
     try {
       dynamic response = await http
-          .put("${API.user}/$userId", {"concentApproval": consentStatus}, authToken: authToken);
+          .put("${API.user}/$userId",
+           {
+            if(consentStatus !=null )"concentApproval": consentStatus,
+            if(mobileNumber != null) "contactNo": mobileNumber
+           }, 
+           authToken: authToken);
       if (response is! String) {
         return true;
       } else {

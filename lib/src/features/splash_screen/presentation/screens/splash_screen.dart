@@ -4,7 +4,8 @@ import 'package:my_plan8/core/widgets/title_text.dart';
 import 'package:my_plan8/src/features/bottom_navigator/bottom_navigator.dart';
 import 'package:my_plan8/src/features/splash_screen/presentation/cubit/splah_screen_cubit.dart';
 import 'package:my_plan8/src/features/splash_screen/presentation/screens/onboarding_screen.dart';
-
+import 'package:my_plan8/core/constants/dimensions.dart';
+import 'package:my_plan8/src/features/user_profile/cubit/user_profile_cubit.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
   static const String routeName = "/splashScreen";
@@ -39,26 +40,30 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
  
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        BlocListener<SplahScreenCubit, SplahScreenState>(
-          listener:(context, state){
-            if(state is SplashScreenLoading){
-              setState(() {
-                text = "Loading..";
-              });
-            }else if(state is SplashScreenSuccess){
-              Navigator.pushNamed(context, BottomNavigator.routeName, arguments: 1);
-            }else{
-              Navigator.pushNamed(context, OnboardinScreen.routeName);
-              //Navigator.pushNamed(context, SignIn.routeName);
-            }
-          }, 
-          child: TitleText(text: text, type: TitleTextType.SECONDARY)
-          )
-      ],
+    return SizedBox(
+      width: Dimensions.screenWidth,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          BlocListener<SplahScreenCubit, SplahScreenState>(
+            listener:(context, state){
+              if(state is SplashScreenLoading){
+                setState(() {
+                  text = "Loading..";
+                });
+              }else if(state is SplashScreenSuccess){
+                context.read<UserProfileCubit>().getUserProfile();
+                Navigator.pushNamed(context, BottomNavigator.routeName, arguments: 1);
+              }else{
+                Navigator.pushNamed(context, OnboardinScreen.routeName);
+                //Navigator.pushNamed(context, SignIn.routeName);
+              }
+            }, 
+            child: TitleText(text: text, type: TitleTextType.SECONDARY, textAlign: TextAlign.center)
+            )
+        ],
+      ),
     );
   }
 }

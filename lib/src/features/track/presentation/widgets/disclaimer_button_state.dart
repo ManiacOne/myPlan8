@@ -33,25 +33,35 @@ class _DisclaimerStateButtonState extends State<DisclaimerStateButton> {
           setState(() {
             _buttonText = "Proceed";
           });
-          if (state.userProfile.concentApproval == "") {
-            context.read<TrackCubit>().getConsent();
+          if (state.userProfile.concentApproval == "" ||
+              state.userProfile.concentApproval == null) {
+            Future<String> consentHandle =
+                context.read<TrackCubit>().getConsent();
+            if (consentHandle.toString() == "") {
+              ToastMessage.toast16(toastMessage: "Something went wrong");
+            } else {
+              print(consentHandle.toString());
+              context.read<UserProfileCubit>().updateUserProfile(
+                  userId: state.userProfile.userId!,
+                  isMobile: false,
+                  consentStatus: ConcentApprovals.INITIATED.name);
+              mpp(
+                  mobile: state.userProfile.contactNo!,
+                  consentHandle: consentHandle.toString(),
+                  userId: state.userProfile.userId!);
+            }
           } else if (state.userProfile.concentApproval ==
               ConcentApprovals.INITIATED.name) {
-            print("initiated");
-            context.read<UserProfileCubit>().updateUserProfile(
-                userId: state.userProfile.userId!,
-                consentStatus: ConcentApprovals.PENDING.name);
             mpp(
-                mobile: "8017118135",
-                consentHandle: "4d0e4fdf-9b16-47a8-a804-30c1d00300e7",
+                mobile: state.userProfile.contactNo!,
+                consentHandle: state.userProfile.consentHandle!,
                 userId: state.userProfile.userId!);
           } else if (state.userProfile.concentApproval ==
               ConcentApprovals.PENDING.name) {
-            print("pending");
             Navigator.pushNamed(context, GeneratingScore.routeName);
           } else if (state.userProfile.concentApproval ==
               ConcentApprovals.ACTIVE.name) {
-            print("active");
+            print("ACTIVE");
           }
         } else if (state is UserProfileError) {
           setState(() {
@@ -93,7 +103,9 @@ class _DisclaimerStateButtonState extends State<DisclaimerStateButton> {
         if (objectData == true) {
           print('In Parent Upload Success..$objectData');
           context.read<UserProfileCubit>().updateUserProfile(
-              userId: userId, consentStatus: ConcentApprovals.PENDING.name);
+              userId: userId,
+              isMobile: false,
+              consentStatus: ConcentApprovals.PENDING.name);
         } else {
           print('In Parent Upload Failure..$objectData');
         }

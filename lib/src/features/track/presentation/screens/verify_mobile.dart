@@ -8,6 +8,7 @@ import 'package:my_plan8/core/widgets/title_text.dart';
 import 'package:my_plan8/src/features/track/presentation/cubit/track_cubit.dart';
 import 'package:my_plan8/src/features/track/presentation/widgets/terms_conditions_text.dart';
 import 'package:my_plan8/src/features/track/presentation/widgets/verify_mobile_form.dart';
+import 'package:my_plan8/src/features/user_profile/cubit/user_profile_cubit.dart';
 
 class VerifyMobile extends StatelessWidget {
   const VerifyMobile({super.key});
@@ -19,7 +20,8 @@ class VerifyMobile extends StatelessWidget {
       create: (context) => TrackCubit(),
       child: SafeArea(
         child: Scaffold(
-          appBar: GlobalAppBar(context: context, text: "", onTap: ()=>Navigator.pop(context)),
+          appBar: GlobalAppBar(
+              context: context, text: "", onTap: () => Navigator.pop(context)),
           body: const VerifyMobileBody(),
         ),
       ),
@@ -33,8 +35,7 @@ class VerifyMobileBody extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    TextEditingController mobileFieldController = TextEditingController();
-
+    TextEditingController mobileFieldController = TextEditingController(text: "");
     return Align(
       alignment: Alignment.center,
       child: Container(
@@ -53,7 +54,8 @@ class VerifyMobileBody extends StatelessWidget {
                     "Enter your mobile no linked to your bank account/accounts.",
                 type: TitleTextType.TERTIARY),
             vSpacer24,
-            VerfiyMobileForm(mobileFieldController: mobileFieldController),
+            VerfiyMobileForm(
+                mobileFieldController: mobileFieldController),
             const Spacer(),
             const TermsConditionsText(),
             vSpacer18,
@@ -62,8 +64,11 @@ class VerifyMobileBody extends StatelessWidget {
             GhostButton(
                 title: "Continue with SMS",
                 onTap: () {
-                  context.read<TrackCubit>().verifyMobile(
-                      mobileNumber: mobileFieldController.text.trim());
+                  context.read<UserProfileCubit>().updateUserProfile(
+                      userId: context.read<UserProfileCubit>().userId, 
+                      isMobile: true,
+                      mobileNumber: mobileFieldController.text.trim()
+                      );
                 }),
             vSpacer16
           ],

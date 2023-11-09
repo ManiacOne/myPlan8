@@ -11,6 +11,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   UserProfileCubit({this.userProfileRepository}) : super(UserProfileInitial());
 
   UserProfileRepository? userProfileRepository;
+  String userId = "";
 
   Future getUserProfile() async {
     emit(UserProfileLoading());
@@ -24,24 +25,51 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       response.fold((l) {
         emit(UserProfileError(l.failureMessage));
       }, (r) {
+        userId = r.userId!;
         emit(UserProfileSuccess(r));
       });
     }
   }
 
   Future updateUserProfile(
-      {required String userId, required String consentStatus}) async {
-    final prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString("authToken") ?? '';
-    if (token == "") {
+      {required String userId,
+      String? consentStatus,
+      String? mobileNumber,
+      required bool isMobile}) async {
+    if (isMobile && mobileNumber!=null) {
+      if (mobileNumber == "" ||
+          mobileNumber.length < 10 ||
+          mobileNumber.length > 10) {
+        emit(UserProfileError("Invalid Mobile number"));
+      } else {
+        final prefs = await SharedPreferences.getInstance();
+        String token = prefs.getString("authToken") ?? '';
+        if (token == "") {
+        } else {
+          Either<Failure, bool> response = await userProfileRepository!
+              .updateUserProfile(
+                  userId: userId, authToken: token, mobileNumber: int.parse(mobileNumber));
+          response.fold((l) {
+            emit(UserProfileError(l.failureMessage));
+          }, (r) {
+            emit(UserMobileSucess());
+          });
+        }
+      }
     } else {
-      Either<Failure, bool> response = await userProfileRepository!
-          .updateUserProfile(userId: userId, consentStatus: consentStatus, authToken : token);
-      response.fold((l) {
-        print(l.failureMessage);
-      }, (r) {
-        //emit(state)
-      });
+      final prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString("authToken") ?? '';
+      if (token == "") {
+      } else {
+        Either<Failure, bool> response = await userProfileRepository!
+            .updateUserProfile(
+                userId: userId, consentStatus: consentStatus, authToken: token);
+        response.fold((l) {
+          print(l.failureMessage);
+        }, (r) {
+          //emit(state)
+        });
+      }
     }
   }
 

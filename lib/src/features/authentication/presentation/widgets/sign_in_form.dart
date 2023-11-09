@@ -10,6 +10,7 @@ import 'package:my_plan8/src/features/authentication/presentation/cubit/authenti
 import 'package:my_plan8/src/features/track/presentation/screens/money_one_sdk.dart';
 import 'package:my_plan8/src/features/authentication/presentation/widgets/remember_me.dart';
 import 'package:my_plan8/src/features/bottom_navigator/bottom_navigator.dart';
+import 'package:my_plan8/src/features/user_profile/cubit/user_profile_cubit.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -76,6 +77,7 @@ class _SignInFormState extends State<SignInForm> {
                 buttonText = "Login";
                 errorText = null;
               });
+              context.read<UserProfileCubit>().getUserProfile();
               Navigator.pushNamed(context, BottomNavigator.routeName, arguments: 1);
             } else if (state is AuthenticationError) {
               setState(() {

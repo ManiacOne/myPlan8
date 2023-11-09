@@ -8,9 +8,13 @@ class RemoteGetConsent{
   Future getConsent({required String authToken}) async{
     try {
       dynamic response = await http.get(API.getConsent, token: authToken);
-      print(response);
+      if(response is! String && response.data["status"] == true){
+        return response.data["result"]["data"]["data"]["consent_handle"];
+      }else{
+        throw "something went wrong";
+      }
     } catch (e) {
-      
+      rethrow;
     }
   }
 

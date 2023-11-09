@@ -11,8 +11,7 @@ import 'package:my_plan8/src/features/authentication/presentation/cubit/authenti
 import 'package:my_plan8/src/features/authentication/presentation/screens/auth_success.dart';
 
 class EmailVerifyForm extends StatefulWidget {
-  const EmailVerifyForm({super.key, required this.authToken});
-  final String authToken;
+  const EmailVerifyForm({super.key});
   @override
   State<EmailVerifyForm> createState() => _EmailVerifyFormState();
 }
@@ -88,7 +87,6 @@ class _EmailVerifyFormState extends State<EmailVerifyForm> {
                   title: buttonText,
                   onTap: () {
                     context.read<AuthenticationCubit>().verifyOTP(
-                        authToken: widget.authToken,
                         otp:
                             "${controller1.text}${controller2.text}${controller3.text}${controller4.text}");
                   });

@@ -10,9 +10,8 @@ import 'package:my_plan8/src/features/authentication/presentation/cubit/authenti
 import 'package:my_plan8/src/features/authentication/presentation/widgets/email_verify_form.dart';
 
 class EmailVerification extends StatelessWidget {
-  const EmailVerification({super.key, required this.authToken});
+  const EmailVerification({super.key});
   static const String routeName = "/emailVerification";
-  final String authToken;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -57,7 +56,7 @@ class EmailVerification extends StatelessWidget {
                               style: TextStyles.textStyles16(),
                             ),
                             vSpacer16,
-                            EmailVerifyForm(authToken: authToken)
+                            EmailVerifyForm()
                           ],
                         ),
                       ),

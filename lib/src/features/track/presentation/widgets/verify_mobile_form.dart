@@ -4,8 +4,8 @@ import 'package:my_plan8/core/constants/margins_paddings_spacer.dart';
 import 'package:my_plan8/core/widgets/text_field_container.dart';
 import 'package:my_plan8/core/widgets/text_field_header.dart';
 import 'package:my_plan8/core/widgets/toasts.dart';
-import 'package:my_plan8/src/features/track/presentation/cubit/track_cubit.dart';
 import 'package:my_plan8/src/features/track/presentation/screens/verify_mobile_otp.dart';
+import 'package:my_plan8/src/features/user_profile/cubit/user_profile_cubit.dart';
 
 class VerfiyMobileForm extends StatefulWidget {
   const VerfiyMobileForm({super.key, required this.mobileFieldController});
@@ -24,13 +24,13 @@ class _VerfiyMobileFormState extends State<VerfiyMobileForm> {
         children: [
           const TextFieldHeader(headerText: "Mobile number"),
           vSpacer8,
-          BlocListener<TrackCubit, TrackState>(
+          BlocListener<UserProfileCubit, UserProfileState>(
             listener: (context, state) {
-              if (state is TrackError) {
+              if (state is UserProfileError) {
                 setState(() {
                   errorText = state.errorMessage;
                 });
-              } else if (state is TrackSuccess) {
+              } else if (state is UserMobileSucess) {
                 setState(() {
                   errorText = null;
                 });

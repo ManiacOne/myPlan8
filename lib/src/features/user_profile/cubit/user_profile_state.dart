@@ -11,6 +11,8 @@ final class UserProfileSuccess extends UserProfileState {
   UserProfileSuccess(this.userProfile);
 } 
 
+final class UserMobileSucess extends UserProfileState {} 
+
 final class UserProfileNavigate extends UserProfileState{}
 
 final class UserProfileError extends UserProfileState {

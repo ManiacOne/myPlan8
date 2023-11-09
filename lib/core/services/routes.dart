@@ -43,12 +43,9 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const SignUp());
 
       case EmailVerification.routeName:
-        if (args is String) {
           return MaterialPageRoute(
-              builder: (context) => EmailVerification(authToken: args));
-        } else {
-          return _routeError();
-        }
+              builder: (context) => const EmailVerification());
+        
 
       case GiveReferral.routeName:
         return MaterialPageRoute(builder: (context) => const GiveReferral());

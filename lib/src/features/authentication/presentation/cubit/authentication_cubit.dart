@@ -67,17 +67,24 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   /*==============================VERIFY OTP==============================*/
-  Future verifyOTP({required String otp, required String authToken}) async {
+  Future verifyOTP({required String otp}) async {
     emit(AuthenticationLoading());
     if (otp.length != 4) {
       emit(AuthenticationError(errorMessage: "please enter valid OTP"));
     } else {
-      Either<Failure, bool> response = await verifyOTPUsecase!.verifyOTP(otp: otp, authToken: authToken);
-      response.fold((l){
-        emit(AuthenticationError(errorMessage: l.failureMessage));
-      }, (r){
-        emit(AuthenticationSuccess());
-      });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String authToken = prefs.getString("authToken") ?? "";
+      if (authToken == "") {
+        emit(AuthenticationError(errorMessage: "Please login again"));
+      } else {
+        Either<Failure, bool> response =
+            await verifyOTPUsecase!.verifyOTP(otp: otp, authToken: authToken);
+        response.fold((l) {
+          emit(AuthenticationError(errorMessage: l.failureMessage));
+        }, (r) {
+          emit(AuthenticationSuccess());
+        });
+      }
     }
   }
 }
