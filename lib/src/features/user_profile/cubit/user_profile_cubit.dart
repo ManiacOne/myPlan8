@@ -46,10 +46,13 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         String token = prefs.getString("authToken") ?? '';
         if (token == "") {
         } else {
+          print(userId);
+          print(token);
           Either<Failure, bool> response = await userProfileRepository!
               .updateUserProfile(
                   userId: userId, authToken: token, mobileNumber: int.parse(mobileNumber));
           response.fold((l) {
+            print(l.failureMessage);
             emit(UserProfileError(l.failureMessage));
           }, (r) {
             emit(UserMobileSucess());

@@ -4,7 +4,6 @@ import 'package:my_plan8/core/constants/enums.dart';
 import 'package:my_plan8/core/widgets/primary_button.dart';
 import 'package:my_plan8/core/widgets/toasts.dart';
 import 'package:my_plan8/src/features/track/presentation/cubit/track_cubit.dart';
-import 'package:my_plan8/src/features/track/presentation/screens/generating_score.dart';
 import 'package:my_plan8/src/features/user_profile/cubit/user_profile_cubit.dart';
 import 'package:pds_flutter/onemoney_pds.dart';
 import 'package:mpp_with_ui_sdk/mpp_sdk.dart';
@@ -52,16 +51,21 @@ class _DisclaimerStateButtonState extends State<DisclaimerStateButton> {
             }
           } else if (state.userProfile.concentApproval ==
               ConcentApprovals.INITIATED.name) {
-            mpp(
-                mobile: state.userProfile.contactNo!,
-                consentHandle: state.userProfile.consentHandle!,
-                userId: state.userProfile.userId!);
-          } else if (state.userProfile.concentApproval ==
-              ConcentApprovals.PENDING.name) {
-            Navigator.pushNamed(context, GeneratingScore.routeName);
-          } else if (state.userProfile.concentApproval ==
-              ConcentApprovals.ACTIVE.name) {
-            print("ACTIVE");
+            Future<String> consentHandle =
+                context.read<TrackCubit>().getConsent();
+            if (consentHandle.toString() == "") {
+              ToastMessage.toast16(toastMessage: "Something went wrong");
+            } else {
+              print(consentHandle);
+              context.read<UserProfileCubit>().updateUserProfile(
+                  userId: state.userProfile.userId!,
+                  isMobile: false,
+                  consentStatus: ConcentApprovals.INITIATED.name);
+              mpp(
+                  mobile: state.userProfile.contactNo!,
+                  consentHandle: consentHandle.toString(),
+                  userId: state.userProfile.userId!);
+            }
           }
         } else if (state is UserProfileError) {
           setState(() {
@@ -89,6 +93,7 @@ class _DisclaimerStateButtonState extends State<DisclaimerStateButton> {
       {required String mobile,
       required String consentHandle,
       required String userId}) async {
+        print(consentHandle);
     MppSDK mppSDK = MppSDK(
       baseUrl: 'https://mpp-api.moneyone.in',
       mobileNumber: mobile,

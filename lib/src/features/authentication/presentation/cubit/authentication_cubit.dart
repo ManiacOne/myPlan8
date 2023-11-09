@@ -35,6 +35,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       response.fold((l) {
         emit(AuthenticationError(errorMessage: l.failureMessage));
       }, (r) {
+        saveStringToLocalStorage("authToken", r.token!);
         emit(AuthenticationSuccess(authToken: r.token));
       });
     }

@@ -13,7 +13,7 @@ class TrackCubit extends Cubit<TrackState> {
 
   Future<String> getConsent() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString("authToken") ?? "";
+    String token = await prefs.getString("authToken") ?? "";
     String consentHandle = "";
     Either<Failure, String> response = await consentUsecase!.getConsent(authToken: token);
     response.fold((l){
